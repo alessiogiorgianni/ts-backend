@@ -3,6 +3,8 @@ import { User as UserEntity } from 'src/entities/user.entity';
 import { UsersService } from '../services/users.service';
 import { User as UserOutputDTO} from 'src/users/dto/output/user.output';
 import { UserMapper } from '../mappers/user.mapper';
+import { UseGuards } from '@nestjs/common';
+import { GqlAuthGuard } from 'src/auth/auth.guard';
 
 @Resolver(() => UserOutputDTO)
 export class UserResolver {
@@ -11,6 +13,7 @@ export class UserResolver {
     ) {
     }
 
+    @UseGuards(GqlAuthGuard)
     @Query(() => [UserOutputDTO])
     async getAllUsers(): Promise<UserOutputDTO[]> {
         const users = await this.userService.getAllUsers()
@@ -22,10 +25,13 @@ export class UserResolver {
         return usersOutput
     }
 
+    @UseGuards(GqlAuthGuard)
     @Query(
         () => UserOutputDTO,
         {nullable: true,}
     )
+
+    @UseGuards(GqlAuthGuard)
     async getUserById(
         @Args('id', { type: () => Int }) id: number
     ): Promise<UserOutputDTO|null> {

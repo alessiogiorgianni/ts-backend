@@ -20,7 +20,7 @@ import { join } from 'path';
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       definitions: {
         path: join(process.cwd(), 'src/graphql.ts'),
-      },
+      }
     }),
 
     TypeOrmModule.forRoot({
@@ -44,6 +44,6 @@ import { join } from 'path';
     AppService,
   ],
 })
-export class AppModule { 
-  constructor(private dataSource: DataSource) {}
+export class AppModule {
+  constructor(private dataSource: DataSource) { }
 }

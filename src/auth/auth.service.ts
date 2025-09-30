@@ -3,7 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { LoginUserOutput, JWTPayload } from 'src/auth/dto/output/login.user.output';
 import { RegisterUserInput } from 'src/auth/dto/input/register.user.input';
 import { User } from 'src/graphql';
-import { UsersService } from '../../users/services/users.service';
+import { UsersService } from '../users/services/users.service';
 
 @Injectable()
 export class AuthService {
@@ -14,6 +14,10 @@ export class AuthService {
     }
 
     async signUp(data: RegisterUserInput): Promise<User> {
+        if (data.password !== data.repeatedPassword) {
+            throw Error('Password and RepatedPassword are not same!')
+        }
+
         return this.userService.createUser(data)
     }
 
