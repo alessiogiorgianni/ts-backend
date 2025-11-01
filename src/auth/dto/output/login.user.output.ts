@@ -1,16 +1,16 @@
-import { Field, ID, ObjectType } from "@nestjs/graphql";
+import { Field, ID, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
 export class JWTPayload {
-    @Field(() => ID)
-    id?: number
+  @Field(() => ID)
+  id?: number;
 
-    @Field()
-    email: string
+  @Field()
+  email: string;
 }
 
 @ObjectType()
 export class LoginUserOutput {
-    @Field()
-    accessToken: string
+  @Field()
+  accessToken: string;
 }

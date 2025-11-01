@@ -11,7 +11,6 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { DataSource } from 'typeorm';
 import { join } from 'path';
 
-
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
@@ -20,13 +19,13 @@ import { join } from 'path';
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       definitions: {
         path: join(process.cwd(), 'src/graphql.ts'),
-      }
+      },
     }),
 
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.DB_HOST,
-      port: parseInt(process.env.DB_PORT || "3306"),
+      port: parseInt(process.env.DB_PORT || '3306'),
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
@@ -37,13 +36,9 @@ import { join } from 'path';
 
     AuthModule,
   ],
-  controllers: [
-    AppController
-  ],
-  providers: [
-    AppService,
-  ],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {
-  constructor(private dataSource: DataSource) { }
+  constructor(private dataSource: DataSource) {}
 }
